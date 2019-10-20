@@ -2,6 +2,7 @@ class RoutineTemplate < ApplicationRecord
 
   validates :name, presence: true
   validates :start_date, presence: true
+  validates :interval_type, presence: true
 
   enum interval_type: {
     daily: 0,

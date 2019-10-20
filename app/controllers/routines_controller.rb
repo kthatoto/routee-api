@@ -5,6 +5,7 @@ class RoutinesController < ApplicationController
   def create
     routine_template = RoutineTemplate.new(
       user_id: @current_user.id,
+      interval_type: params[:interval_type],
       name: params[:name],
       start_date: @date,
       description: params[:description],
