@@ -42,8 +42,9 @@ class RoutineTerm < ApplicationRecord
         end_date: date.end_of_month,
       )
     end
-    RoutineTemplate.get_by_date(user_id, date).each do |template|
-      [daily_term, weekly_term, monthly_term].each do |term|
+
+    {daily: daily_term, weekly: weekly_term, monthly: monthly_term}.each do |type, term|
+      RoutineTemplate.get_by_date(user_id, type, date).each do |template|
         Routine.find_or_create_by(
           user_id: user_id,
           routine_template_id: template.id,
@@ -51,10 +52,15 @@ class RoutineTerm < ApplicationRecord
         )
       end
     end
+
     {
       daily_term: daily_term,
       weekly_term: weekly_term,
       monthly_term: monthly_term,
     }
+  end
+
+  def serialized_routines
+    routines.map { |routine| ::RoutineSerializer.new(routine) }
   end
 end
