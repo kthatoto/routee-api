@@ -1,12 +1,14 @@
 class RoutineTerm < ApplicationRecord
 
+  has_many :routines
+
   enum interval_type: {
     daily: 0,
     weekly: 1,
     monthly: 2,
   }
 
-  def self.current_terms(user_id, date)
+  def self.prepare_current_terms(user_id, date)
     terms = RoutineTerm.where(
       'user_id = ? AND start_date <= ? AND ? <= end_date',
       user_id,
@@ -40,7 +42,15 @@ class RoutineTerm < ApplicationRecord
         end_date: date.end_of_month,
       )
     end
-    templates = RoutineTemplate.get_by_date(user_id, date)
+    RoutineTemplate.get_by_date(user_id, date).each do |template|
+      [daily_term, weekly_term, monthly_term].each do |term|
+        routine = Routine.find_or_create_by(
+          user_id: user_id,
+          routine_template_id: template.id,
+          routine_term_id: term.id,
+        )
+      end
+    end
     {
       daily_term: daily_term,
       weekly_term: weekly_term,

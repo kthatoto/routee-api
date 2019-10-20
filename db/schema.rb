@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_160806) do
     t.integer "routine_template_id", null: false
     t.integer "routine_term_id", null: false
     t.boolean "achieved", default: false, null: false
-    t.integer "count"
+    t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -5,7 +5,7 @@ class CreateRoutines < ActiveRecord::Migration[5.2]
       t.integer :routine_template_id, null: false
       t.integer :routine_term_id,     null: false
       t.boolean :achieved,            null: false, default: false
-      t.integer :count
+      t.integer :count,                            default: 0
       t.timestamps
     end
   end
