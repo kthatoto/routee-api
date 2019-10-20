@@ -6,9 +6,6 @@ class RoutineTerm < ApplicationRecord
     monthly: 2,
   }
 
-  before_create do
-  end
-
   def self.current_terms(user_id, date)
     terms = RoutineTerm.where(
       'user_id = ? AND start_date <= ? AND ? <= end_date',
@@ -43,6 +40,7 @@ class RoutineTerm < ApplicationRecord
         end_date: date.end_of_month,
       )
     end
+    templates = RoutineTemplate.get_by_date(user_id, date)
     {
       daily_term: daily_term,
       weekly_term: weekly_term,

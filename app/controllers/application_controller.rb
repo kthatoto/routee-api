@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :authenticate
+  before_action :set_date
 
   def authenticate
     token = request.headers["Authorization"]
@@ -10,5 +11,15 @@ class ApplicationController < ActionController::API
     else
       render status: 401
     end
+  end
+
+  def set_date
+    if params[:year] && params[:month] && params[:date]
+      @date = Date.new(params[:year].to_i, params[:month].to_i, params[:date].to_i)
+    end
+  end
+
+  def date_required
+    raise 422 if @date.nil?
   end
 end
