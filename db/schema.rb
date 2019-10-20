@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_160806) do
   create_table "routines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "routine_template_id", null: false
+    t.integer "routine_term_id", null: false
     t.boolean "achieved", default: false, null: false
     t.integer "count"
     t.datetime "created_at", null: false
