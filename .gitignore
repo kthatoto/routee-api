@@ -19,3 +19,5 @@
 
 /vendor/bundle
 /mysql
+
+/runner.rb
