@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_160806) do
   create_table "routine_templates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name", null: false
+    t.integer "interval_type", null: false
     t.boolean "archived", default: false, null: false
     t.date "start_date"
     t.text "description"
