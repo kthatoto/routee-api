@@ -11,5 +11,8 @@ class RoutinesController < ApplicationController
       description: params[:description],
       target_count: params[:count]&.to_i,
     )
+    if routine_template.save
+    else
+    end
   end
 end
