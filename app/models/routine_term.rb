@@ -44,7 +44,7 @@ class RoutineTerm < ApplicationRecord
     end
     RoutineTemplate.get_by_date(user_id, date).each do |template|
       [daily_term, weekly_term, monthly_term].each do |term|
-        routine = Routine.find_or_create_by(
+        Routine.find_or_create_by(
           user_id: user_id,
           routine_template_id: template.id,
           routine_term_id: term.id,
