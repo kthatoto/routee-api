@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_160806) do
     t.date "start_date"
     t.text "description"
     t.integer "target_count"
+    t.boolean "archived"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

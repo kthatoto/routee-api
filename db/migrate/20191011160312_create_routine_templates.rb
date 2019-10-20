@@ -6,6 +6,7 @@ class CreateRoutineTemplates < ActiveRecord::Migration[5.2]
       t.date :start_date
       t.text :description
       t.integer :target_count
+      t.boolean :archived
       t.timestamps
     end
   end
