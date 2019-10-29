@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
   get :home, to: 'home#index'
-  post :routines, to: 'routines#create'
+  resources :routines, only: [:create] do
+    patch :toggle_achieved, on: :member
+    patch :decrement,       on: :member
+  end
 end

@@ -21,4 +21,8 @@ class RoutineTemplate < ApplicationRecord
       date,
     )
   end
+
+  def single_count?
+    [nil, 0, 1].include?(target_count)
+  end
 end
