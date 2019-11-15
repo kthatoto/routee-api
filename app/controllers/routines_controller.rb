@@ -12,7 +12,9 @@ class RoutinesController < ApplicationController
       target_count: params[:count]&.to_i,
     )
     if routine_template.save
+      render status: 200
     else
+      render status: 409
     end
   end
 

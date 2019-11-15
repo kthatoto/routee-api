@@ -1,6 +1,6 @@
 class RoutineTemplate < ApplicationRecord
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :interval_type }
   validates :start_date, presence: true
   validates :interval_type, presence: true
 
