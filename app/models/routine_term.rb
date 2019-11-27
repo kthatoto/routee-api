@@ -18,7 +18,9 @@ class RoutineTerm < ApplicationRecord
     daily_term = terms.find { |t| t.daily? }
     weekly_term = terms.find { |t| t.weekly? }
     monthly_term = terms.find { |t| t.monthly? }
-    if daily_term.nil?
+
+    should_create_forward_dates_count = 14
+    if daily_term.nil? && (date - Date.today).to_i < should_create_forward_dates_count
       daily_term = RoutineTerm.create!(
         user_id: user_id,
         interval_type: :daily,
@@ -26,7 +28,7 @@ class RoutineTerm < ApplicationRecord
         end_date: date,
       )
     end
-    if weekly_term.nil?
+    if weekly_term.nil? && (date.beginning_of_week(:sunday) - Date.today).to_i < should_create_forward_dates_count
       weekly_term = RoutineTerm.create!(
         user_id: user_id,
         interval_type: :weekly,
@@ -34,7 +36,7 @@ class RoutineTerm < ApplicationRecord
         end_date: date.end_of_week(:sunday),
       )
     end
-    if monthly_term.nil?
+    if monthly_term.nil? && (date.beginning_of_month - Date.today).to_i < should_create_forward_dates_count
       monthly_term = RoutineTerm.create!(
         user_id: user_id,
         interval_type: :monthly,
@@ -44,6 +46,7 @@ class RoutineTerm < ApplicationRecord
     end
 
     {daily: daily_term, weekly: weekly_term, monthly: monthly_term}.each do |type, term|
+      next if term.nil?
       RoutineTemplate.get_by_date(user_id, type, date).each do |template|
         Routine.find_or_create_by(
           user_id: user_id,
