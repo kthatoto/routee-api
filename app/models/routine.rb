@@ -10,7 +10,10 @@ class Routine < ApplicationRecord
   delegate :name, to: :routine_template
   delegate :description, to: :routine_template
   delegate :target_count, to: :routine_template
-  delegate :single_count? , to: :routine_template
+  delegate :single_count?, to: :routine_template
+  delegate :interval_type, to: :routine_term
+  delegate :start_date, to: :routine_term
+  delegate :end_date, to: :routine_term
 
   def decrementable?
     !single_count? && count > 0
