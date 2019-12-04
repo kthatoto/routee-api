@@ -12,7 +12,7 @@ RUN apt-get update -qq \
 
 WORKDIR /tmp
 COPY Gemfile* /tmp/
-RUN bundle install --jobs=8
+RUN bundle install --jobs=8 --without production
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME
