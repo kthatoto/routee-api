@@ -7,7 +7,7 @@ class RoutinesController < ApplicationController
       user_id: @current_user.id,
       interval_type: params[:interval_type],
       name: params[:name],
-      start_date: @date,
+      start_date: Date.today,
       description: params[:description],
       target_count: params[:count]&.to_i,
     )
