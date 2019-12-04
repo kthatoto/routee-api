@@ -44,7 +44,7 @@ class RoutineTerm < ApplicationRecord
 
     year_month = ->(date) { date.year * 12 + date.month }
     if monthly_term.nil? &&
-      (year_month.call(date) - (year_month.call(today))) < create_forward_months_count
+      (year_month.call(date) - (year_month.call(today))) <= create_forward_months_count
       monthly_term = RoutineTerm.create!(
         user_id: user_id,
         interval_type: :monthly,

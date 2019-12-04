@@ -1,7 +1,4 @@
 class RoutinesController < ApplicationController
-
-  before_action :date_required, only: [:create]
-
   def create
     routine_template = RoutineTemplate.new(
       user_id: @current_user.id,

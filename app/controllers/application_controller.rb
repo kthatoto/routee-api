@@ -20,6 +20,6 @@ class ApplicationController < ActionController::API
   end
 
   def date_required
-    raise 422 if @date.nil?
+    render status: 422 if @date.nil?
   end
 end
