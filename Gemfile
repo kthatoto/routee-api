@@ -3,15 +3,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
-gem 'rails', '~> 5.2.3'
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
-gem 'puma', '~> 3.11'
+gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
+gem 'mysql2', '>= 0.4.4'
+gem 'puma', '~> 4.1'
 gem 'bcrypt', '~> 3.1.7'
-gem 'bootsnap', '>= 1.1.0', require: false
-gem 'active_model_serializers'
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
+
+gem 'banken'
+gem 'active_model_serializers'
+gem 'dotenv-rails'
+gem 'firebase-auth'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

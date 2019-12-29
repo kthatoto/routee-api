@@ -11,7 +11,8 @@
 /log/*
 /tmp/*
 
-
+# Ignore uploaded files in development.
+/storage/*
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
@@ -20,4 +21,4 @@
 /vendor/bundle
 /mysql
 
-/runner.rb
+/.env
