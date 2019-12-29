@@ -1,7 +1,7 @@
 class RoutinesController < ApplicationController
   def create
     routine_template = RoutineTemplate.new(
-      user_id: @current_user.id,
+      user_id: current_user.id,
       interval_type: params[:interval_type],
       name: params[:name],
       start_date: Date.today,
@@ -42,7 +42,7 @@ class RoutinesController < ApplicationController
   end
 
   def toggle_achieved
-    routine = Routine.find_by(id: params[:id], user_id: @current_user.id)
+    routine = Routine.find_by(id: params[:id], user_id: current_user.id)
     if routine.single_count?
       routine.toggle!(:achieved)
     else
@@ -52,7 +52,7 @@ class RoutinesController < ApplicationController
   end
 
   def decrement
-    routine = Routine.find_by(id: params[:id], user_id: @current_user.id)
+    routine = Routine.find_by(id: params[:id], user_id: current_user.id)
     routine.decrement_count! if routine.decrementable?
     render status: 200
   end

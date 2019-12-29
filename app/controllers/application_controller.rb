@@ -1,25 +1,32 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate
+  include Banken
+
   before_action :set_date
 
-  def authenticate
-    token = request.headers["Authorization"]
-    digested_token = Digest::SHA1.hexdigest(token)
-    user = User.find_by(token_digest: digested_token)
-    if user
-      @current_user = user
-    else
-      render status: 401
-    end
+  def check
+    render json: { user: !!current_user }
   end
 
-  def set_date
-    if params[:year] && params[:month] && params[:date]
-      @date = Date.new(params[:year].to_i, params[:month].to_i, params[:date].to_i)
-    end
-  end
+  private
 
-  def date_required
-    render status: 422 if @date.nil?
-  end
+    def current_user
+      return @current_user if @current_user
+      return nil unless token = request.headers['Authorization']
+      client = Firebase::Auth::Client.new(ENV['FIREBASE_APIKEY'])
+      token.gsub!('Bearer ', '')
+      res = client.get_account_info(token)
+      return nil unless res.success?
+      email = res.body['users'].first['email']
+      @current_user = User.find_or_create_by(email: email)
+    end
+
+    def set_date
+      if params[:year] && params[:month] && params[:date]
+        @date = Date.new(params[:year].to_i, params[:month].to_i, params[:date].to_i)
+      end
+    end
+
+    def date_required
+      render status: 422 if @date.nil?
+    end
 end
