@@ -1,8 +1,4 @@
-user = User.create!(
-  account_id: 'kthatoto',
-  password: 'password',
-  token_digest: Digest::SHA1.hexdigest('token_kthatoto'),
-)
+user = User.create!(email: 'kthatoto@gmail.com')
 
 template = RoutineTemplate.create!(
   user_id: user.id,
