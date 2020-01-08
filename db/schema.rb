@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_12_29_191406) do
     t.integer "interval_type", null: false
     t.boolean "archived", default: false, null: false
     t.date "start_date"
+    t.date "end_date"
     t.text "description"
     t.integer "target_count"
     t.datetime "created_at", null: false
