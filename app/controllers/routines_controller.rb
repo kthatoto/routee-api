@@ -1,14 +1,19 @@
 class RoutinesController < ApplicationController
   def create
-    routine_template = RoutineTemplate.new(
+    start_date = params[:start_date]&.date_string? ? Date.parse(params[:start_date]) : Date.today
+    end_date = params[:end_date]&.date_string? ? Date.parse(params[:end_date]) : nil
+    template = RoutineTemplate.new(
       user_id: current_user.id,
       interval_type: params[:interval_type],
       name: params[:name],
-      start_date: Date.today,
+      start_date: start_date,
+      end_date: end_date,
       description: params[:description],
       target_count: params[:count]&.to_i,
     )
-    if routine_template.save
+    if template.save
+      generator = RoutineResources::Generator.new(user: current_user, template: template)
+      generator.generate_terms_and_routines
       render status: 200
     else
       render status: 409
