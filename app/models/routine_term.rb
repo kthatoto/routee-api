@@ -8,7 +8,7 @@ class RoutineTerm < ApplicationRecord
     monthly: 2,
   }
 
-  def self.prepare_current_terms(user_id, date)
+  def self.fetch_current_terms(user_id, date)
     terms = RoutineTerm.where(
       'user_id = :user_id AND start_date <= :date AND :date <= end_date',
       user_id: user_id,
