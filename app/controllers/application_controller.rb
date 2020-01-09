@@ -31,8 +31,8 @@ class ApplicationController < ActionController::API
     end
 
     def set_date
-      if params[:year] && params[:month] && params[:date]
-        @date = Date.new(params[:year].to_i, params[:month].to_i, params[:date].to_i)
+      if params[:date] && params[:date].date_string?
+        @date = Date.parse(params[:date])
       end
     end
 
