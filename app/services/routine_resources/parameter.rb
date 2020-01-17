@@ -1,6 +1,6 @@
 module RoutineResources
   class Parameter
-    include AcitveModel::Model
+    include ActiveModel::Model
 
     attr_accessor(
       :user,     :user_id,
