@@ -2,6 +2,14 @@ class RoutinesController < ApplicationController
   def create
     start_date = params[:start_date]&.date_string? ? Date.parse(params[:start_date]) : Date.today
     end_date = params[:end_date]&.date_string? ? Date.parse(params[:end_date]) : nil
+    case params[:interval_type]
+    when "weekly"
+      start_date = start_date.beginning_of_week(:sunday)
+      end_date = end_date.end_of_week(:sunday)
+    when "monthly"
+      start_date = start_date.beginning_of_month
+      end_date = end_date.end_of_month
+    end
     template = RoutineTemplate.new(
       user_id: current_user.id,
       interval_type: params[:interval_type],
