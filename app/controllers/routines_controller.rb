@@ -12,7 +12,8 @@ class RoutinesController < ApplicationController
       target_count: params[:count]&.to_i,
     )
     if template.save
-      generator = RoutineResources::Generator.new(user: current_user, template: template)
+      param = RoutineResources::Parameter.new(user: current_user, template: template)
+      generator = RoutineResources::Generator.new(param)
       generator.generate_terms_and_routines
       render status: 200
     else

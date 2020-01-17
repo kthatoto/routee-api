@@ -13,7 +13,6 @@ module RoutineResources
       case @param.template.interval_type.to_sym
       when :daily
         @terms = create_daily_terms(date_range)
-        terms_map = @terms.map {|t| [t.start_date, t]}.to_h
       when :weekly
       when :monthly
       end

@@ -18,12 +18,7 @@ class RoutineTerm < ApplicationRecord
     weekly_term = terms.find { |t| t.weekly? }
     monthly_term = terms.find { |t| t.monthly? }
 
-    create_forward_dates_count = 13
-    create_forward_weeks_count = 2
-    create_forward_months_count = 1
-    today = Date.today
-
-    if daily_term.nil? && (date - today) <= create_forward_dates_count
+    if daily_term.nil? && date <= today
       daily_term = RoutineTerm.create!(
         user_id: user_id,
         interval_type: :daily,
@@ -32,8 +27,7 @@ class RoutineTerm < ApplicationRecord
       )
     end
 
-    if weekly_term.nil? &&
-      (date.beginning_of_week(:sunday) - today) / 7 <= create_forward_weeks_count
+    if weekly_term.nil? && date.beginning_of_week(:sunday) <= today
       weekly_term = RoutineTerm.create!(
         user_id: user_id,
         interval_type: :weekly,
@@ -43,8 +37,7 @@ class RoutineTerm < ApplicationRecord
     end
 
     year_month = ->(date) { date.year * 12 + date.month }
-    if monthly_term.nil? &&
-      (year_month.call(date) - (year_month.call(today))) <= create_forward_months_count
+    if monthly_term.nil? && year_month.call(date) <= year_month.call(today)
       monthly_term = RoutineTerm.create!(
         user_id: user_id,
         interval_type: :monthly,
