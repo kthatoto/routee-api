@@ -9,7 +9,8 @@ module RoutineResources
       raise "template_id is required" if @param.template.nil?
       today = Date.today
       return if today < @param.template.start_date
-      @date_range = @param.template.start_date..today
+      end_date = [@param.template.end_date || today, today].min
+      @date_range = @param.template.start_date..end_date
       case @param.template.interval_type.to_sym
       when :daily
         @terms = create_daily_terms
