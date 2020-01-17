@@ -18,6 +18,7 @@ class RoutineTerm < ApplicationRecord
     weekly_term = terms.find { |t| t.weekly? }
     monthly_term = terms.find { |t| t.monthly? }
 
+    today = Date.today
     if daily_term.nil? && date <= today
       daily_term = RoutineTerm.create!(
         user_id: user_id,

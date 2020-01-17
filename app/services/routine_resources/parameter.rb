@@ -16,9 +16,9 @@ module RoutineResources
       @user        ||= User.find(@user_id) if @user_id
       @user_id     ||= @user.id if @user
       @term        ||= RoutineTerm.find(@term_id) if @term_id
-      @term_id     ||= @term.id
+      @term_id     ||= @term.id if @term
       @template    ||= RoutineTemplate.find(@template_id) if @template_id
-      @template_id ||= @template.id
+      @template_id ||= @template.id if @template
       @routine     ||= Routine.find(@routine_id) if @routine_id
       @routine_id  ||= @routine.id if @routine
     end
