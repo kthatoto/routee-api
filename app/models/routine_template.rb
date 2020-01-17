@@ -15,9 +15,10 @@ class RoutineTemplate < ApplicationRecord
   # @params date           <Date>
   def self.get_by_date(user_id, interval_type, date)
     RoutineTemplate.where(
-      'archived = false AND user_id = ? AND interval_type = ? AND start_date <= ?',
+      'archived = false AND user_id = ? AND interval_type = ? AND start_date <= ? AND end_date >= ?',
       user_id,
       RoutineTemplate.interval_types[interval_type],
+      date,
       date,
     )
   end
